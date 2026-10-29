@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<script>(function(){try{var t=localStorage.getItem('pdftools-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDFTools 3 — Editor PDF Pro</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon-192.png">
+<link rel="apple-touch-icon" href="/img/favicon-180.png">
+<link rel="stylesheet" href="/styles.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}.native-shell{max-width:1680px;margin:0 auto;padding:18px 22px}.native-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}.native-top h1{margin:0;font-size:23px;font-weight:800}.native-badge{font-size:10px;font-weight:800;letter-spacing:.08em;background:var(--wine);color:#f3e9dd;padding:5px 9px;border-radius:5px}.native-back{color:var(--muted);text-decoration:none;font-size:14px}.native-back:hover{color:var(--text)}.native-layout{display:grid;grid-template-columns:264px 126px minmax(0,1fr) 280px;gap:12px;min-height:calc(100vh - 82px)}.native-panel{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:14px;box-shadow:0 8px 25px rgba(0,0,0,.06)}.native-panel h3{margin:0 0 11px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.native-upload{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:130px;border:1px dashed var(--line);border-radius:9px;padding:16px;text-align:center;cursor:pointer;background:var(--panel2);transition:.15s ease}.native-upload:hover{border-color:var(--accent);background:var(--panel)}.native-upload input{display:none}.native-upload-icon{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--panel2);color:var(--text);font-size:20px;margin-bottom:8px}.native-upload strong{font-size:14px;color:var(--text)}.native-upload small{display:block;color:var(--muted);font-size:11px;margin-top:5px;line-height:1.4}.native-file-name{display:none;margin-top:9px;padding:8px 9px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.native-file-name.show{display:block}.native-status{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.45;min-height:16px}.native-divider{border:0;border-top:1px solid var(--line);margin:14px 0}.native-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:7px}.native-toolbar button{border:1px solid var(--line);background:var(--panel2);color:var(--text);min-height:38px;padding:8px 7px;border-radius:6px;cursor:pointer;font-size:12.5px}.native-toolbar button:hover{background:var(--line);border-color:var(--muted)}.native-toolbar button.active{background:var(--accent);border-color:var(--accent2);color:var(--on-accent)}.native-save{width:100%;margin-top:10px;padding:11px;border:0;border-radius:7px;background:var(--accent);color:var(--on-accent);font-weight:800;cursor:pointer;font-size:14px}.native-save:hover:not(:disabled){background:#c94e39}.native-save:disabled{opacity:.45;cursor:not-allowed}
+.native-search{display:flex;gap:6px;margin-bottom:6px}.native-search input{flex:1;min-width:0;padding:7px 8px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:5px;font-size:12px}.native-search-nav{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}.native-search-nav button{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:4px 9px;border-radius:5px;cursor:pointer;font-size:12px}.native-search-nav button:disabled{opacity:.35;cursor:not-allowed}
+.native-undoredo{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.native-undoredo button{border:1px solid var(--line);background:var(--panel2);color:var(--text);min-height:36px;border-radius:6px;cursor:pointer;font-size:12.5px}.native-undoredo button:hover:not(:disabled){background:var(--line)}.native-undoredo button:disabled{opacity:.3;cursor:not-allowed}
+.native-thumbs-panel{overflow-y:auto;padding:10px 8px}.native-thumbs-panel h3{padding:0 4px}.native-thumb{position:relative;margin-bottom:10px;border:2px solid transparent;border-radius:7px;cursor:pointer;overflow:hidden;background:var(--panel2)}.native-thumb img{display:block;width:100%;height:auto}.native-thumb .native-thumb-num{position:absolute;bottom:4px;right:5px;background:rgba(0,0,0,.65);color:#fff;font-size:10px;padding:1px 5px;border-radius:4px}.native-thumb:hover{border-color:var(--muted)}.native-thumb.active{border-color:var(--accent)}
+.native-stage-col{display:flex;flex-direction:column;gap:10px;min-width:0}.native-pager{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px 12px;flex-wrap:wrap}.native-pager-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12.5px}.native-pager-btn:hover:not(:disabled){background:var(--line);border-color:var(--muted)}.native-pager-btn:disabled{opacity:.35;cursor:not-allowed}.native-pager-label{font-size:12px;color:var(--text);min-width:100px;text-align:center}.native-pager-sep{width:1px;height:20px;background:var(--line)}
+.native-stage{background:var(--panel2);border:1px solid var(--line);border-radius:11px;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:28px;min-width:0}.native-empty{text-align:center;color:var(--muted);margin-top:20vh;font-size:14px}.native-page-wrap{position:relative;display:inline-block;line-height:0;flex:0 1 auto;min-width:0;max-width:100%}.native-page{display:block;max-width:100%;height:auto;background:#fff;box-shadow:0 14px 42px rgba(0,0,0,.18)}.native-properties label{display:block;font-size:11px;color:var(--muted);margin-top:10px}.native-properties input,.native-properties select,.native-properties textarea{width:100%;box-sizing:border-box;margin-top:4px;padding:8px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:5px}.native-note{font-size:11px;line-height:1.5;color:var(--muted)}
+.native-text-object{font-family:Arial,Helvetica,sans-serif;transition:background .1s,border-color .1s,box-shadow .1s;color:transparent!important;background:transparent!important;border:1px solid rgba(190,112,70,.58);border-radius:1px;text-shadow:none!important}.native-text-object:hover{background:rgba(230,166,120,.07)!important;border-color:rgba(193,68,45,.9)!important;box-shadow:0 0 0 1px rgba(193,68,45,.08)}.native-text-object.selected{background:rgba(193,68,45,.10)!important;border:1px solid #c19665!important;box-shadow:0 0 0 1px rgba(193,68,45,.18)!important}.native-text-object[data-changed="true"]{color:#111820!important;background:#fff!important;border:1px solid rgba(193,68,45,.7)!important;line-height:1!important}.native-text-object[data-changed="true"].selected{background:#fff!important}.native-text-object.search-hit{outline:2px solid #ffd166!important;outline-offset:1px}
+.native-help{margin-top:12px;color:var(--muted);font-size:10px;line-height:1.45}
+.native-savebar{margin-top:14px}.native-savebar label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.native-savebar-row{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;background:var(--panel2);overflow:hidden}.native-savebar-row input{flex:1;min-width:0;border:0;background:transparent;color:var(--text);padding:9px 10px;font-size:13px}.native-savebar-row input:disabled{color:var(--muted)}.native-savebar-row input:focus{outline:none}.native-savebar-ext{padding:9px 10px 9px 0;color:var(--muted);font-size:13px}
+@media(max-width:1200px){.native-layout{grid-template-columns:1fr}.native-thumbs-panel{display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden}.native-thumb{flex:0 0 90px;margin-right:8px;margin-bottom:0}.native-stage{min-height:55vh}.native-panel{min-height:auto}}
+</style>
+</head>
+<body><main class="native-shell">
+<div class="native-top"><a class="native-back" href="/">← Voltar</a><span class="native-badge">NOVO MOTOR</span><h1>Editor PDF Pro</h1></div>
+<div class="native-layout">
+
+<aside class="native-panel">
+  <h3>Arquivo</h3>
+  <label class="native-upload" id="nativeUpload"><span class="native-upload-icon">▣</span><strong>Selecionar PDF</strong><small>Clique para escolher um arquivo<br>ou arraste o PDF para cá</small><input id="nativeFile" type="file" accept="application/pdf,.pdf"></label>
+  <div id="nativeFileName" class="native-file-name"></div>
+  <div class="native-status" id="nativeStatus">Nenhum PDF carregado.</div>
+  <hr class="native-divider">
+  <h3>Buscar no documento</h3>
+  <div class="native-search"><input id="nativeSearchInput" type="text" placeholder="Buscar texto…"></div>
+  <div class="native-search-nav"><span id="nativeSearchCount">—</span><button id="nativeSearchPrev" disabled>‹</button><button id="nativeSearchNext" disabled>›</button></div>
+  <hr class="native-divider">
+  <h3>Ferramentas</h3>
+  <div class="native-toolbar">
+    <button data-mode="select" class="active">↖ Selecionar</button>
+    <button data-mode="text">T Texto</button>
+    <button data-mode="bold">B Negrito</button>
+    <button data-mode="italic">I Itálico</button>
+    <button data-mode="underline">U Sublinhado</button>
+    <button data-mode="delete">⌫ Excluir</button>
+  </div>
+  <div class="native-undoredo"><button id="nativeUndo" disabled>↺ Desfazer</button><button id="nativeRedo" disabled>↻ Refazer</button></div>
+  <button id="nativeRotate" class="native-save" style="background:var(--panel2);color:var(--text);border:1px solid var(--line);margin-top:10px;">⟳ Rotacionar página</button>
+  <button id="nativeSelectAll" class="native-save" style="background:var(--panel2);color:var(--text);border:1px solid var(--line);">☑ Selecionar tudo (documento)</button>
+  <div class="native-savebar">
+    <label for="nativeFileNameOut">Nome do arquivo</label>
+    <div class="native-savebar-row">
+      <input id="nativeFileNameOut" type="text" placeholder="documento-editado" disabled>
+      <span class="native-savebar-ext">.pdf</span>
+    </div>
+  </div>
+  <button id="nativeSave" class="native-save" disabled>Salvar PDF</button>
+  <div id="nativeSaveHint" class="native-note" style="margin-top:6px"></div>
+  <div class="native-help">As caixas indicam exatamente os textos detectados. Clique em uma caixa para editar. Ctrl+clique seleciona vários. Ctrl+Z desfaz. O texto original permanece visível até a alteração ser aplicada.</div>
+</aside>
+
+<aside class="native-panel native-thumbs-panel" id="nativeThumbsPanel">
+  <h3>Páginas</h3>
+  <div id="nativeThumbs"></div>
+</aside>
+
+<section class="native-stage-col">
+  <div id="nativePager" class="native-pager" style="display:none">
+    <button id="nativePrevPage" class="native-pager-btn">‹ Anterior</button>
+    <span id="nativePageLabel" class="native-pager-label">Página 1 de 1</span>
+    <button id="nativeNextPage" class="native-pager-btn">Próxima ›</button>
+    <span class="native-pager-sep"></span>
+    <button id="nativeZoomOut" class="native-pager-btn">− Zoom</button>
+    <span id="nativeZoomLabel" class="native-pager-label" style="min-width:52px">100%</span>
+    <button id="nativeZoomIn" class="native-pager-btn">+ Zoom</button>
+    <button id="nativeZoomReset" class="native-pager-btn">Ajustar</button>
+  </div>
+  <section class="native-stage" id="nativeStage"><div class="native-empty">Selecione um PDF para iniciar o novo motor.</div></section>
+</section>
+
+<aside class="native-panel native-properties"><h3>Propriedades</h3><div id="nativeProps" class="native-note">Selecione um texto para visualizar suas propriedades.</div></aside>
+
+</div>
+</main>
+<script src="/vendor/pdf-lib.min.js"></script>
+<script src="/local-engine.js" defer></script>
+<script src="/native-editor.js" defer></script>
+<script src="/sidebar.js" defer></script>
+</body>
+</html>

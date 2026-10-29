@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<script>(function(){try{var t=localStorage.getItem('pdftools-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PDFTools</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon-192.png">
+  <link rel="apple-touch-icon" href="/img/favicon-180.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="container">
+    <section id="hero">
+      <div class="eyebrow">PDFTools 3</div>
+      <h1>Ferramentas para PDF</h1>
+      <p class="lead">Junte, divida, converta, comprima e edite seus PDFs.</p>
+      <div id="toolGrid" class="tool-grid"></div>
+    </section>
+    <section id="workspace" class="hidden">
+      <button id="backBtn" class="back">← Voltar</button>
+      <h2 id="toolTitle"></h2>
+      <div id="toolBody"></div>
+    </section>
+  </main>
+  <div id="toast" class="toast"></div>
+  <script src="/local-engine.js" defer></script>
+  <script src="/preview-modal.js" defer></script>
+  <script src="/progress-ui.js" defer></script>
+  <script src="/app.js" defer></script>
+  <script src="/editor-native-entry.js" defer></script>
+  <script src="/ocr-tool.js" defer></script>
+  <script src="/sidebar.js" defer></script>
+</body>
+</html>
