@@ -7,8 +7,9 @@
  *   miniaturas usadas por essas telas.
  *
  * As ferramentas que dependem de programas de servidor (LibreOffice,
- * Ghostscript, Tesseract/Google Vision, PDFBox) continuam no serviço
- * PDFTOOLS2 já existente. Para elas, qualquer chamada a "/api/..." é
+ * Ghostscript, Tesseract/Google Vision) continuam no serviço PDFTOOLS2
+ * já existente. (O Editor PDF Pro é o PDF Bigode, em /editor, e não passa
+ * por aqui.) Para elas, qualquer chamada a "/api/..." é
  * redirecionada para API_BASE, e antes de enviar o arquivo o servidor é
  * "acordado" (no plano gratuito ele dorme após ~15 min sem uso).
  *
@@ -17,7 +18,6 @@
  */
 (() => {
   const API_BASE = 'https://pdftools2.onrender.com';
-  const onEditorPage = /native-editor\.html/i.test(location.pathname);
   const nativeFetch = window.fetch.bind(window);
 
   // ---------------------------------------------------------------- libs
@@ -340,9 +340,7 @@
     '/api/pages/edit': pagesEdit,
     '/api/convert/images-to-pdf': imagesToPdf,
     '/api/convert/pdf-to-images': pdfToImages,
-    // O editor precisa que o PDF fique guardado no servidor (fileId) para
-    // salvar as edições depois - lá a análise continua remota.
-    ...(onEditorPage ? {} : { '/api/inspect': inspect })
+    '/api/inspect': inspect
   };
 
   /**
@@ -459,6 +457,4 @@
   };
 
   window.PDFTools = { API_BASE, localHandler, remoteUrl, ensureAwake, markAwake, warmUp };
-
-  if (onEditorPage) warmUp();
 })();

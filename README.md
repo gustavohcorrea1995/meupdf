@@ -14,7 +14,7 @@ Nova versão do PDFTools publicada como **Static Site** no Render: não dorme e 
 | Comprimir PDF | Servidor PDFTOOLS2 (Ghostscript) |
 | Word/Excel/PPT ↔ PDF | Servidor PDFTOOLS2 (LibreOffice) |
 | Tornar PDF editável (OCR) | Servidor PDFTOOLS2 (Google Vision / Tesseract) |
-| Editor PDF Pro | Servidor PDFTOOLS2 (MuPDF + PDFBox) |
+| Editor PDF Pro | Navegador ([PDF Bigode](https://github.com/gustavohcorrea1995/pdfbigode), Rust/WebAssembly, em `editor/`) |
 
 Nas ferramentas do navegador, o arquivo não sai do computador da pessoa.
 
@@ -25,6 +25,10 @@ Nas ferramentas do navegador, o arquivo não sai do computador da pessoa.
   - as demais vão para `API_BASE` (`https://pdftools2.onrender.com`). Antes de enviar, ele acorda o servidor (que dorme após ~15 min no plano gratuito) e avisa a pessoa se estiver demorando.
 - `progress-ui.js` mostra o progresso real tanto do processamento local quanto do envio ao servidor.
 - As bibliotecas ficam em `vendor/` e só são baixadas quando uma ferramenta precisa delas.
+
+### Editor PDF Pro
+
+`editor/` é o build web do PDF Bigode (`trunk build --release` em `apps/pdfbigode-web`), copiado sem alterações, com as licenças MIT/Apache-2.0 e o NOTICE. `native-editor.html` mostra o editor num iframe com `?host=parent`; `editor-host.js` usa a ponte de mensagens dele para esconder a tela de carregamento quando o editor fica pronto e para gravar o PDF quando a pessoa salva. Para atualizar o editor, substitua o conteúdo de `editor/` por um build novo.
 
 O servidor PDFTOOLS2 não foi alterado. Para apontar para outro servidor, troque `API_BASE` em `local-engine.js`.
 

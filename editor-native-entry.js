@@ -13,7 +13,7 @@
       <span class="stamp-mark">NOVO</span>
       <div class="icon">⚡</div>
       <h3>Editor PDF Pro</h3>
-      <p>Novo motor de edição direta de texto, separado do editor atual.</p>
+      <p>Edite textos, imagens, páginas e formulários direto no navegador, sem enviar o PDF.</p>
     `;
     card.addEventListener('click', () => {
       window.location.href = '/native-editor.html';

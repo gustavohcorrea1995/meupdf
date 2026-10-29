@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDF Bigode</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M14 6h26l12 12v40H14z' fill='%232f7d5b'/%3E%3Cpath d='M40 6v12h12' fill='%2398c9b0'/%3E%3Cpath d='M17 40c3-7 10-7 15-2 5-5 12-5 15 2-4 3-10 3-15-1-5 4-11 4-15 1z' fill='%23fff'/%3E%3C/svg%3E" />
+    
+<script type="module">
+import init, * as bindings from './pdfbigode-web-ed82254588840ccd.js';
+const wasm = await init({ module_or_path: './pdfbigode-web-ed82254588840ccd_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    
+    <script>
+      // Text recognition for "Recognize text": Tesseract, served from ./tess with the app (nothing
+      // leaves the browser). Loaded on first use; one worker per language set, kept for later pages.
+      window.pdfbigodeOcr = (() => {
+        const LANGS = { pt: ["por"], en: ["eng"], "pt+en": ["por", "eng"] };
+        const base = new URL("./tess/", document.baseURI);
+        let lib = null;
+        const workers = new Map();
+        function loadLib() {
+          if (!lib) {
+            lib = new Promise((resolve, reject) => {
+              const s = document.createElement("script");
+              s.src = new URL("tesseract.min.js", base).href;
+              s.onload = () => resolve(window.Tesseract);
+              s.onerror = () => { lib = null; reject(new Error("could not load text recognition")); };
+              document.head.appendChild(s);
+            });
+          }
+          return lib;
+        }
+        function worker(code) {
+          const langs = LANGS[code] || LANGS.pt;
+          const key = langs.join("+");
+          if (!workers.has(key)) {
+            const w = loadLib().then((T) =>
+              T.createWorker(langs, 1, {
+                workerPath: new URL("worker.min.js", base).href,
+                corePath: new URL("core", base).href,
+                langPath: new URL("lang", base).href,
+                gzip: true,
+              })
+            );
+            w.catch(() => workers.delete(key));
+            workers.set(key, w);
+          }
+          return workers.get(key);
+        }
+        return async (rgba, width, height, code) => {
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext("2d").putImageData(new ImageData(rgba, width, height), 0, 0);
+          const w = await worker(code);
+          const { data } = await w.recognize(canvas, {}, { blocks: true, text: false });
+          const lines = [];
+          for (const block of data.blocks || [])
+            for (const para of block.paragraphs || [])
+              for (const line of para.lines || []) {
+                const words = (line.words || [])
+                  .filter((x) => x.text && x.text.trim())
+                  .map((x) => [x.text, x.bbox.x0, x.bbox.y0, x.bbox.x1, x.bbox.y1]);
+                if (words.length) lines.push(words);
+              }
+          return JSON.stringify(lines);
+        };
+      })();
+    </script>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #f1f1f3; }
+      canvas { width: 100%; height: 100%; display: block; outline: none; }
+      @media (prefers-color-scheme: dark) { html, body { background: #19191c; } }
+    </style>
+  <link rel="modulepreload" href="./pdfbigode-web-ed82254588840ccd.js" crossorigin="anonymous" integrity="sha384-rl0Z8cEbL03IE9O7q61slXx66Z3xFBBYOHZGH9OPYIVSv+YTOPlO+Q3tPCpXkgT9"><link rel="preload" href="./pdfbigode-web-ed82254588840ccd_bg.wasm" crossorigin="anonymous" integrity="sha384-UgRZj5SrAkNVzJG0ESLonXryDHVbcP5yqyH0rXGdapbsmY72O8YaRXv3CCBsrcvz" as="fetch" type="application/wasm"></head>
+  <body>
+    <canvas id="pdfbigode"></canvas>
+  </body>
+</html>
